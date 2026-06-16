@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모동숲 꽃 교배 가이드</title>
+  <style>
+    :root {
+      --bg: #f7f1e6;
+      --panel: rgba(255, 252, 246, 0.94);
+      --panel-strong: #fffaf2;
+      --ink: #2b241f;
+      --muted: #6b6257;
+      --line: rgba(95, 76, 55, 0.16);
+      --accent: #d66b4f;
+      --accent-deep: #9b4a35;
+      --grass: #7d9b65;
+      --gold: #b58428;
+      --shadow: 0 18px 50px rgba(81, 62, 41, 0.12);
+      --radius: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255, 207, 148, 0.7), transparent 26%),
+        radial-gradient(circle at top right, rgba(186, 223, 179, 0.65), transparent 28%),
+        linear-gradient(180deg, #f6eddc 0%, #f7f2e9 38%, #eef5ea 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 88%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+    }
+
+    .page-shell {
+      width: min(1320px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 20px 0 48px;
+    }
+
+    .hero,
+    .panel,
+    .species-section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      overflow: hidden;
+      position: relative;
+      padding: 28px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214, 107, 79, 0.18), rgba(214, 107, 79, 0));
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fae7ca;
+      color: #87502a;
+      font-size: 0.93rem;
+      font-weight: 800;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin-top: 14px;
+      font-size: clamp(2.1rem, 5vw, 4.1rem);
+      line-height: 0.98;
+      max-width: 10ch;
+    }
+
+    .hero-copy {
+      margin-top: 12px;
+      max-width: 68ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+
+    .hero-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .hero-card,
+    .stat-card,
+    .rule-card,
+    .species-card,
+    .tree-step,
+    .tip-box {
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+    }
+
+    .hero-card,
+    .species-card,
+    .rule-card,
+    .tip-box {
+      padding: 18px;
+    }
+
+    .hero-card h2,
+    .panel h2,
+    .species-card h3 {
+      font-size: 1.18rem;
+    }
+
+    .hero-list,
+    .chip-list,
+    .rule-list,
+    .species-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-list li {
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-list strong,
+    .stat-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.02rem;
+    }
+
+    .hero-list span,
+    .rule-card p,
+    .tip-box p,
+    .species-summary,
+    .species-subtitle,
+    .legend-text,
+    .tree-note,
+    .data-table td.note,
+    .data-table td.meta {
+      color: var(--muted);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 16px;
+    }
+
+    .stat-card .value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--accent-deep);
+    }
+
+    .section-stack {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .panel-header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.6;
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip-list a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      font-weight: 700;
+      color: var(--accent-deep);
+    }
+
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rule-card h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .rule-card p {
+      margin: 0;
+      line-height: 1.6;
+      font-size: 0.96rem;
+    }
+
+    .genotype-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+    }
+
+    .mini-table,
+    .data-table,
+    .bonus-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .mini-table th,
+    .mini-table td,
+    .bonus-table th,
+    .bonus-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .mini-table th,
+    .bonus-table th {
+      color: var(--accent-deep);
+      font-size: 0.92rem;
+    }
+
+    .mini-table td code {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .tip-box {
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      background:
+        radial-gradient(circle at top right, rgba(245, 224, 181, 0.85), transparent 34%),
+        rgba(255, 252, 244, 0.92);
+    }
+
+    .tip-box p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .layout-example {
+      margin-top: 14px;
+      display: inline-grid;
+      gap: 8px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      border: 1px dashed rgba(125, 155, 101, 0.35);
+      background: rgba(239, 248, 233, 0.72);
+      font-size: 1.28rem;
+      letter-spacing: 0.18em;
+    }
+
+    .species-links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .species-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .species-link img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .species-link strong {
+      display: block;
+      font-size: 0.97rem;
+    }
+
+    .species-link span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .species-section {
+      padding: 24px;
+      margin-top: 18px;
+    }
+
+    .species-header {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .species-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .species-mark {
+      width: 78px;
+      height: 78px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, #fff2cf, #f1d8aa);
+      flex: 0 0 auto;
+    }
+
+    .species-mark img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .species-title h2 {
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+    }
+
+    .species-subtitle {
+      margin: 6px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .species-flower-groups {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .species-flower-group strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+      color: var(--accent-deep);
+    }
+
+    .flower-mini-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flower-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .flower-mini-thumb {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: white;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .flower-mini-thumb > img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .flower-mini-thumb .overlay-bag,
+    .flower-mini-thumb .overlay-star,
+    .flower-thumb .overlay-bag,
+    .flower-thumb .overlay-star {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 10px;
+      border: 1px solid rgba(120, 94, 65, 0.18);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 10px rgba(75, 57, 38, 0.12);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .flower-mini-thumb .overlay-bag img,
+    .flower-thumb .overlay-bag img {
+      width: 17px;
+      height: 17px;
+      object-fit: contain;
+    }
+
+    .flower-mini-thumb .overlay-star,
+    .flower-thumb .overlay-star {
+      font-size: 0.9rem;
+      color: var(--gold);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .species-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .species-card {
+      overflow: hidden;
+    }
+
+    .species-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .data-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .data-table th {
+      position: sticky;
+      top: 0;
+      background: #f7ead0;
+      color: var(--accent-deep);
+      font-size: 0.9rem;
+      z-index: 1;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .flower-cell {
+      min-width: 148px;
+    }
+
+    .flower-token {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flower-thumb {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.95);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .flower-thumb > img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .flower-copy strong {
+      display: block;
+      font-size: 0.94rem;
+    }
+
+    .flower-copy span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .chance-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f9e4bf;
+      color: #81502a;
+      font-weight: 800;
+      font-size: 0.86rem;
+    }
+
+    .genotype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(125, 155, 101, 0.13);
+      color: #4e6d39;
+      font-weight: 800;
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+
+    .tree-map-wrap {
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .tree-map {
+      position: relative;
+      min-width: 760px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(197, 232, 239, 0.42), transparent 28%),
+        linear-gradient(180deg, rgba(237, 250, 252, 0.9), rgba(250, 253, 255, 0.95));
+      overflow: hidden;
+    }
+
+    .tree-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.45;
+    }
+
+    .tree-map-groups {
+      position: absolute;
+      inset: 16px 16px auto 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .tree-group-box {
+      min-width: 140px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-align: center;
+      border: 2px solid;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .tree-group-box.seed {
+      color: #4d8a58;
+      border-color: rgba(113, 197, 120, 0.6);
+    }
+
+    .tree-group-box.hybrid {
+      color: #b34d8c;
+      border-color: rgba(236, 116, 188, 0.45);
+    }
+
+    .tree-svg {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .tree-svg path {
+      fill: none;
+      stroke: rgba(82, 112, 120, 0.96);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tree-label {
+      font-size: 12px;
+      font-weight: 800;
+      fill: #8d4b2f;
+      paint-order: stroke;
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 5px;
+      stroke-linejoin: round;
+    }
+
+    .tree-chance-label {
+      font-size: 12px;
+      font-weight: 900;
+      fill: #7b4d29;
+      paint-order: stroke;
+      stroke: rgba(255, 255, 255, 0.92);
+      stroke-width: 5px;
+      stroke-linejoin: round;
+    }
+
+    .tree-node-card {
+      position: absolute;
+      width: 108px;
+      height: 122px;
+      padding: 10px 8px 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(126, 151, 160, 0.22);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 18px rgba(92, 122, 129, 0.12);
+      z-index: 4;
+      text-align: center;
+    }
+
+    .tree-node-card.result {
+      background: rgba(255, 250, 242, 0.96);
+      border-color: rgba(214, 107, 79, 0.2);
+    }
+
+    .tree-node-card .flower-thumb {
+      margin: 0 auto 8px;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+    }
+
+    .tree-node-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .tree-node-card .flower-thumb > img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .tree-node-meta {
+      margin-top: 6px;
+      display: grid;
+      gap: 4px;
+      justify-items: center;
+    }
+
+    .tree-node-meta .genotype-tag {
+      font-size: 0.73rem;
+      padding: 4px 8px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .genotype-grid,
+      .species-grid,
+      .species-links,
+      .rule-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tree-map {
+        min-width: 640px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page-shell {
+        width: min(100% - 18px, 1320px);
+        padding-top: 10px;
+      }
+
+      .hero,
+      .panel,
+      .species-section {
+        padding: 18px;
+        border-radius: 22px;
+      }
+
+      h1 {
+        max-width: none;
+        font-size: 2.25rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-header,
+      .species-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .species-title {
+        align-items: flex-start;
+      }
+
+      .species-flower-groups {
+        grid-template-columns: 1fr;
+      }
+
+      .flower-cell {
+        min-width: 132px;
+      }
+
+      .flower-token {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell" id="app"></main>
+
+  <script>
+    const flowerTypes = [
+      {
+        id: "anemone",
+        name: "아네모네",
+        english: "Anemones",
+        folder: "windflower",
+        heroColor: "red",
+        summary: "파랑을 먼저 만들고, 그 파랑으로 특수 빨강을 만든 뒤 보라까지 이어지는 구조입니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "orange", genotype: "020", source: "seed" },
+            child: { color: "pink", genotype: "110", source: "hybrid" },
+            chance: "100%",
+            note: ""
+          },
+          {
+            step: "2단계",
+            parentA: { color: "white", genotype: "001", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "blue", genotype: "002", source: "hybrid" },
+            chance: "25%",
+            note: ""
+          },
+          {
+            step: "3단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "blue", genotype: "002", source: "hybrid" },
+            child: { color: "red", genotype: "101", source: "hybrid" },
+            chance: "100%",
+            note: "이 빨강은 다음 단계용 특수 빨강입니다."
+          },
+          {
+            step: "4단계",
+            parentA: { color: "red", genotype: "101", source: "hybrid" },
+            parentB: { color: "red", genotype: "101", source: "hybrid" },
+            child: { color: "purple", genotype: "202", source: "hybrid" },
+            chance: "6.25%",
+            note: "특수 빨강끼리 교배해 보라를 노립니다."
+          }
+        ]
+      },
+      {
+        id: "cosmos",
+        name: "코스모스",
+        english: "Cosmos",
+        folder: "cosmos",
+        heroColor: "orange",
+        summary: "주황과 분홍은 빠르게 만들 수 있고, 검정은 씨앗 기반 주황을 반복 교배하는 것이 핵심입니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "yellow", genotype: "021", source: "seed" },
+            child: { color: "orange", genotype: "110 또는 111", source: "hybrid" },
+            chance: "100%",
+            note: ""
+          },
+          {
+            step: "2단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "pink", genotype: "100 또는 101", source: "hybrid" },
+            chance: "100%",
+            note: ""
+          },
+          {
+            step: "3단계",
+            parentA: { color: "orange", genotype: "110 / 111", source: "hybrid" },
+            parentB: { color: "orange", genotype: "110 / 111", source: "hybrid" },
+            child: { color: "black", genotype: "220 또는 221", source: "hybrid" },
+            chance: "5.86%",
+            note: "어떤 조합이든 검정색 생산 가능"
+          }
+        ]
+      },
+      {
+        id: "pansy",
+        name: "팬지",
+        english: "Pansies",
+        folder: "pansy",
+        heroColor: "red",
+        summary: "아네모네와 비슷하게 파랑을 거쳐 특수 빨강을 만들고, 그 빨강끼리 보라를 노리는 흐름입니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "yellow", genotype: "020", source: "seed" },
+            child: { color: "orange", genotype: "110", source: "hybrid" },
+            chance: "100%",
+            note: ""
+          },
+          {
+            step: "2단계",
+            parentA: { color: "white", genotype: "001", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "blue", genotype: "002", source: "hybrid" },
+            chance: "25%",
+            note: ""
+          },
+          {
+            step: "3단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "blue", genotype: "002", source: "hybrid" },
+            child: { color: "red", genotype: "101", source: "hybrid" },
+            chance: "100%",
+            note: "이 빨강은 일반 빨강이 아니라 보라 생산용 특수 빨강입니다."
+          },
+          {
+            step: "4단계",
+            parentA: { color: "red", genotype: "101", source: "hybrid" },
+            parentB: { color: "red", genotype: "101", source: "hybrid" },
+            child: { color: "purple", genotype: "202", source: "hybrid" },
+            chance: "6.25%",
+            note: ""
+          }
+        ]
+      },
+      {
+        id: "tulip",
+        name: "튤립",
+        english: "Tulips",
+        folder: "tulip",
+        heroColor: "red",
+        summary: "기본 씨앗 3색만으로 검정, 분홍, 주황까지 빠르게 만들고, 주황끼리 보라를 노리는 단순한 구조입니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "red", genotype: "201", source: "seed" },
+            child: { color: "black", genotype: "200", source: "hybrid" },
+            chance: "25%",
+            note: ""
+          },
+          {
+            step: "2단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "white", genotype: "002", source: "seed" },
+            child: { color: "pink", genotype: "101", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "3단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "yellow", genotype: "020", source: "seed" },
+            child: { color: "orange", genotype: "110", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "4단계",
+            parentA: { color: "orange", genotype: "110", source: "hybrid" },
+            parentB: { color: "orange", genotype: "110", source: "hybrid" },
+            child: { color: "purple", genotype: "220", source: "hybrid" },
+            chance: "6.25%",
+            note: ""
+          }
+        ]
+      },
+      {
+        id: "hyacinth",
+        name: "히아신스",
+        english: "Hyacinths",
+        folder: "hyacinth",
+        heroColor: "red",
+        summary: "주황에서 바로 보라가 뜰 수도 있고, 특수 파랑을 거쳐 보라를 안정적으로 늘릴 수도 있는 품종입니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "yellow", genotype: "020", source: "seed" },
+            child: { color: "orange", genotype: "110", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "2단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "pink", genotype: "101", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "3단계",
+            parentA: { color: "white", genotype: "001", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "blue", genotype: "002", source: "hybrid" },
+            chance: "25%",
+            note: "씨앗 하양끼리 나온 파랑입니다."
+          },
+          {
+            step: "4단계",
+            parentA: { color: "orange", genotype: "110", source: "hybrid" },
+            parentB: { color: "orange", genotype: "110", source: "hybrid" },
+            child: { color: "purple", genotype: "220", source: "hybrid" },
+            chance: "6.25%",
+            note: "`210` 유전자형도 12.5% 확률로 함께 발생"
+          },
+          {
+            step: "5단계",
+            parentA: { color: "blue", genotype: "210", source: "hybrid" },
+            parentB: { color: "blue", genotype: "210", source: "hybrid" },
+            child: { color: "purple", genotype: "220", source: "hybrid" },
+            chance: "25%",
+            note: "특수 파랑끼리 교배하는 안정 루트"
+          }
+        ]
+      },
+      {
+        id: "lily",
+        name: "백합",
+        english: "Lilies",
+        folder: "lily",
+        heroColor: "red",
+        summary: "장미보다 단순합니다. 검정과 분홍은 빨강 축에서, 주황은 빨강과 노랑 축에서 정리하면 됩니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "red", genotype: "201", source: "seed" },
+            child: { color: "black", genotype: "200", source: "hybrid" },
+            chance: "25%",
+            note: "`202` 핑크도 25% 확률로 함께 발생"
+          },
+          {
+            step: "2단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "yellow", genotype: "020", source: "seed" },
+            child: { color: "orange", genotype: "110", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "3단계",
+            parentA: { color: "red", genotype: "201", source: "seed" },
+            parentB: { color: "white", genotype: "002", source: "seed" },
+            child: { color: "pink", genotype: "101", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          }
+        ]
+      },
+      {
+        id: "mum",
+        name: "국화",
+        english: "Mums",
+        folder: "mum",
+        heroColor: "red",
+        summary: "초록 국화 때문에 부모 관리가 특히 중요합니다. 특수 노랑과 보라를 분리해서 다루는 것이 핵심입니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "pink", genotype: "100 또는 101", source: "hybrid" },
+            chance: "100%",
+            note: ""
+          },
+          {
+            step: "2단계",
+            parentA: { color: "red", genotype: "200", source: "seed" },
+            parentB: { color: "yellow", genotype: "020", source: "seed" },
+            child: { color: "yellow", genotype: "110", source: "hybrid" },
+            chance: "100%",
+            note: "이 노랑은 초록 생산 루트용 특수 노랑입니다."
+          },
+          {
+            step: "3단계",
+            parentA: { color: "white", genotype: "001", source: "seed" },
+            parentB: { color: "white", genotype: "001", source: "seed" },
+            child: { color: "purple", genotype: "002", source: "hybrid" },
+            chance: "25%",
+            note: ""
+          },
+          {
+            step: "4단계",
+            parentA: { color: "yellow", genotype: "110", source: "hybrid" },
+            parentB: { color: "yellow", genotype: "110", source: "hybrid" },
+            child: { color: "purple", genotype: "220", source: "hybrid" },
+            chance: "6.25%",
+            note: "`120` 또는 `210` 유전자형도 25% 확률로 발생"
+          },
+          {
+            step: "5단계",
+            parentA: { color: "purple", genotype: "120 / 210", source: "hybrid" },
+            parentB: { color: "purple", genotype: "120 / 210", source: "hybrid" },
+            child: { color: "green", genotype: "220", source: "hybrid" },
+            chance: "25%",
+            note: "어떤 조합이든 초록색 생산 가능"
+          }
+        ]
+      },
+      {
+        id: "rose",
+        name: "장미",
+        english: "Roses",
+        folder: "rose",
+        heroColor: "red",
+        summary: "가장 긴 다단계 루트입니다. 단계별 결과를 분리 관리해야 최종 파랑 장미까지 안정적으로 이어집니다.",
+        routes: [
+          {
+            step: "1단계",
+            parentA: { color: "red", genotype: "2001", source: "seed" },
+            parentB: { color: "red", genotype: "2001", source: "seed" },
+            child: { color: "black", genotype: "2002", source: "hybrid" },
+            chance: "25%",
+            note: "`2000`은 사용 금지"
+          },
+          {
+            step: "2단계",
+            parentA: { color: "red", genotype: "2001", source: "seed" },
+            parentB: { color: "white", genotype: "0010", source: "seed" },
+            child: { color: "pink", genotype: "1001", source: "hybrid" },
+            chance: "50%",
+            note: "`1011`은 사용 금지"
+          },
+          {
+            step: "3단계",
+            parentA: { color: "red", genotype: "2001", source: "seed" },
+            parentB: { color: "yellow", genotype: "0200", source: "seed" },
+            child: { color: "orange", genotype: "1100", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "4단계",
+            parentA: { color: "white", genotype: "0010", source: "seed" },
+            parentB: { color: "white", genotype: "0010", source: "seed" },
+            child: { color: "purple", genotype: "0020", source: "hybrid" },
+            chance: "25%",
+            note: ""
+          },
+          {
+            step: "5단계",
+            parentA: { color: "purple", genotype: "0020", source: "hybrid" },
+            parentB: { color: "red", genotype: "2001", source: "seed" },
+            child: { color: "pink", genotype: "1011", source: "hybrid" },
+            chance: "50%",
+            note: ""
+          },
+          {
+            step: "6단계",
+            parentA: { color: "pink", genotype: "1011", source: "hybrid" },
+            parentB: { color: "yellow", genotype: "0200", source: "seed" },
+            child: { color: "red", genotype: "1110", source: "hybrid" },
+            chance: "12.5%",
+            note: "교배 성공 시 하이브리드 빨강 획득"
+          },
+          {
+            step: "최종",
+            parentA: { color: "red", genotype: "1110", source: "hybrid" },
+            parentB: { color: "red", genotype: "1110", source: "hybrid" },
+            child: { color: "blue", genotype: "2220", source: "hybrid" },
+            chance: "1.56%",
+            note: "하이브리드 빨강끼리 교배하여 최종 파랑 장미 완성"
+          }
+        ]
+      }
+    ];
+
+    const colorLabels = {
+      red: "빨강",
+      orange: "주황",
+      white: "하양",
+      pink: "분홍",
+      blue: "파랑",
+      purple: "보라",
+      yellow: "노랑",
+      black: "검정",
+      green: "초록"
+    };
+
+    function plantImage(folder, color) {
+      return `images/${folder}/${color}-${folder} plant - Inventory Image.png`;
+    }
+
+    function seedBagImage(folder, color) {
+      return `images/${folder}/${color}-${folder} bag - Inventory Image.png`;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function sourceLabel(source) {
+      return source === "seed" ? "상점 씨앗" : "교배꽃";
+    }
+
+    function overlayBadge(folder, color, source) {
+      if (source === "seed") {
+        return `
+          <span class="overlay-bag" aria-label="상점 씨앗">
+            <img src="${seedBagImage(folder, color)}" alt="상점 씨앗">
+          </span>
+        `;
+      }
+      return `<span class="overlay-star" aria-label="교배꽃">★</span>`;
+    }
+
+    function flowerToken(folder, item) {
+      return `
+        <div class="flower-token">
+          <div class="flower-thumb">
+            <img src="${plantImage(folder, item.color)}" alt="${escapeHtml(colorLabels[item.color])} ${escapeHtml(folder)}">
+            ${overlayBadge(folder, item.color, item.source)}
+          </div>
+          <div class="flower-copy">
+            <strong>${escapeHtml(colorLabels[item.color])}</strong>
+            <span>${escapeHtml(item.genotype)}</span>
+            <span>${sourceLabel(item.source)}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function buildFlowerMini(folder, item) {
+      return `
+        <span class="flower-mini">
+          <span class="flower-mini-thumb">
+            <img src="${plantImage(folder, item.color)}" alt="${escapeHtml(colorLabels[item.color])}">
+          </span>
+          <span>${escapeHtml(colorLabels[item.color])}</span>
+        </span>
+      `;
+    }
+
+    function treeNode(folder, item, isResult = false) {
+      return `
+        <div class="tree-node${isResult ? " result" : ""}">
+          <div class="flower-thumb">
+            <img src="${plantImage(folder, item.color)}" alt="${escapeHtml(colorLabels[item.color])}">
+            ${overlayBadge(folder, item.color, item.source)}
+          </div>
+          <div class="tree-copy">
+            <strong>${escapeHtml(colorLabels[item.color])}</strong>
+            <div class="meta-row">
+              <span class="genotype-tag">${escapeHtml(item.genotype)}</span>
+              <span>${sourceLabel(item.source)}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function itemKey(item) {
+      return `${item.color}|${item.genotype}|${item.source}`;
+    }
+
+    function buildAnemoneTree(species) {
+      const graphWidth = 860;
+      const graphHeight = 700;
+      const nodeCardHeight = 122;
+      const nodes = [
+        { id: "mix-orange", item: { color: "orange", genotype: "020", source: "seed" }, x: 40, y: 64 },
+        { id: "mix-red", item: { color: "red", genotype: "200", source: "seed" }, x: 190, y: 64 },
+        { id: "result-pink", item: { color: "pink", genotype: "110", source: "hybrid" }, x: 115, y: 230, result: true },
+
+        { id: "mix-white-left", item: { color: "white", genotype: "001", source: "seed" }, x: 390, y: 64 },
+        { id: "mix-white-right", item: { color: "white", genotype: "001", source: "seed" }, x: 540, y: 64 },
+        { id: "result-blue", item: { color: "blue", genotype: "002", source: "hybrid" }, x: 465, y: 230, result: true },
+
+        { id: "mix-red-seed-2", item: { color: "red", genotype: "200", source: "seed" }, x: 630, y: 230 },
+        {
+          id: "hybrid-red-left",
+          item: { color: "red", genotype: "101", source: "hybrid" },
+          x: 502,
+          y: 410,
+          result: true
+        },
+        {
+          id: "hybrid-red-right",
+          item: { color: "red", genotype: "101", source: "hybrid" },
+          x: 642,
+          y: 410,
+          result: true
+        },
+        { id: "result-purple", item: { color: "purple", genotype: "202", source: "hybrid" }, x: 607, y: 560, result: true }
+      ];
+
+      function centerX(node) {
+        return node.x + 62;
+      }
+
+      function topY(node) {
+        return node.y;
+      }
+
+      function bottomY(node) {
+        return node.y + nodeCardHeight;
+      }
+
+      function getNode(id) {
+        return nodes.find((node) => node.id === id);
+      }
+
+      function pairToChildPath(leftId, rightId, childId, joinOffset = 22) {
+        const left = getNode(leftId);
+        const right = getNode(rightId);
+        const child = getNode(childId);
+        const yLine = bottomY(left) + joinOffset;
+        const midX = (centerX(left) + centerX(right)) / 2;
+        return [
+          `M ${centerX(left)} ${bottomY(left)} V ${yLine}`,
+          `M ${centerX(right)} ${bottomY(right)} V ${yLine}`,
+          `M ${centerX(left)} ${yLine} H ${centerX(right)}`,
+          `M ${midX} ${yLine} V ${topY(child)}`
+        ].join(" ");
+      }
+
+      function pairToTwinChildrenPath(leftId, rightId, childLeftId, childRightId, joinOffset = 22, branchOffset = 34) {
+        const left = getNode(leftId);
+        const right = getNode(rightId);
+        const childLeft = getNode(childLeftId);
+        const childRight = getNode(childRightId);
+        const yLine = bottomY(left) + joinOffset;
+        const midX = (centerX(left) + centerX(right)) / 2;
+        const splitY = yLine + branchOffset;
+        return [
+          `M ${centerX(left)} ${bottomY(left)} V ${yLine}`,
+          `M ${centerX(right)} ${bottomY(right)} V ${yLine}`,
+          `M ${centerX(left)} ${yLine} H ${centerX(right)}`,
+          `M ${midX} ${yLine} V ${splitY}`,
+          `M ${centerX(childLeft)} ${splitY} H ${centerX(childRight)}`,
+          `M ${centerX(childLeft)} ${splitY} V ${topY(childLeft)}`,
+          `M ${centerX(childRight)} ${splitY} V ${topY(childRight)}`
+        ].join(" ");
+      }
+
+      const edgeMarkup = [
+        pairToChildPath("mix-orange", "mix-red", "result-pink"),
+        pairToChildPath("mix-white-left", "mix-white-right", "result-blue"),
+        pairToTwinChildrenPath("result-blue", "mix-red-seed-2", "hybrid-red-left", "hybrid-red-right"),
+        pairToChildPath("hybrid-red-left", "hybrid-red-right", "result-purple")
+      ].map((path) => `<path d="${path}"></path>`).join("");
+
+      const labels = [
+        { text: "1단계", x: 169, y: 52 },
+        { text: "2단계", x: 530, y: 52 },
+        { text: "3단계", x: 604, y: 218 },
+        { text: "4단계", x: 632, y: 398 }
+      ].map((label) => `
+        <text class="tree-label" x="${label.x}" y="${label.y}" text-anchor="middle">${label.text}</text>
+      `).join("");
+
+      const chanceLabels = [
+        { text: "100%", x: 169, y: 222 },
+        { text: "25%", x: 529, y: 222 },
+        { text: "100%", x: 590, y: 402 },
+        { text: "6.25%", x: 661, y: 552 }
+      ].map((label) => `
+        <text class="tree-chance-label" x="${label.x}" y="${label.y}" text-anchor="middle">${label.text}</text>
+      `).join("");
+
+      const nodeMarkup = nodes.map((node) => `
+        <div class="tree-node-card${node.result ? " result" : ""}" style="left:${node.x}px; top:${node.y}px;">
+          <div class="flower-thumb">
+            <img src="${plantImage(species.folder, node.item.color)}" alt="${escapeHtml(colorLabels[node.item.color])}">
+            ${overlayBadge(species.folder, node.item.color, node.item.source)}
+          </div>
+          <div class="tree-node-title">${escapeHtml(colorLabels[node.item.color])}</div>
+          <div class="tree-node-meta">
+            <span class="genotype-tag">${escapeHtml(node.item.genotype)}</span>
+          </div>
+        </div>
+      `).join("");
+
+      return `
+        <div class="tree-map-wrap">
+          <div class="tree-map" style="width:${graphWidth}px; height:${graphHeight}px;">
+            <svg class="tree-svg" viewBox="0 0 ${graphWidth} ${graphHeight}" preserveAspectRatio="none" aria-hidden="true">
+              ${edgeMarkup}
+              ${labels}
+              ${chanceLabels}
+            </svg>
+            ${nodeMarkup}
+          </div>
+        </div>
+      `;
+    }
+
+    function buildCosmosTree(species) {
+      const graphWidth = 860;
+      const graphHeight = 620;
+      const nodeCardHeight = 122;
+      const nodes = [
+        { id: "seed-yellow", item: { color: "yellow", genotype: "021", source: "seed" }, x: 120, y: 54 },
+        { id: "seed-red", item: { color: "red", genotype: "200", source: "seed" }, x: 300, y: 54 },
+        { id: "seed-white", item: { color: "white", genotype: "001", source: "seed" }, x: 500, y: 54 },
+        { id: "orange-left", item: { color: "orange", genotype: "110 / 111", source: "hybrid" }, x: 52, y: 230, result: true },
+        { id: "orange-right", item: { color: "orange", genotype: "110 / 111", source: "hybrid" }, x: 184, y: 230, result: true },
+        { id: "pink", item: { color: "pink", genotype: "100 또는 101", source: "hybrid" }, x: 404, y: 230, result: true },
+        { id: "black", item: { color: "black", genotype: "220 또는 221", source: "hybrid" }, x: 118, y: 438, result: true }
+      ];
+
+      function centerX(node) {
+        return node.x + 54;
+      }
+
+      function topY(node) {
+        return node.y;
+      }
+
+      function bottomY(node) {
+        return node.y + nodeCardHeight;
+      }
+
+      function getNode(id) {
+        return nodes.find((node) => node.id === id);
+      }
+
+      function pairToChildPath(leftId, rightId, childId, joinOffset = 18) {
+        const left = getNode(leftId);
+        const right = getNode(rightId);
+        const child = getNode(childId);
+        const yLine = bottomY(left) + joinOffset;
+        const midX = (centerX(left) + centerX(right)) / 2;
+        return [
+          `M ${centerX(left)} ${bottomY(left)} V ${yLine}`,
+          `M ${centerX(right)} ${bottomY(right)} V ${yLine}`,
+          `M ${centerX(left)} ${yLine} H ${centerX(right)}`,
+          `M ${midX} ${yLine} V ${topY(child)}`
+        ].join(" ");
+      }
+
+      function topBridgePath(leftId, centerId, rightId, leftChildId, rightChildId, joinOffset = 18) {
+        const left = getNode(leftId);
+        const center = getNode(centerId);
+        const right = getNode(rightId);
+        const leftChild = getNode(leftChildId);
+        const rightChild = getNode(rightChildId);
+        const yLine = bottomY(center) + joinOffset;
+        return [
+          `M ${centerX(left)} ${bottomY(left)} V ${yLine}`,
+          `M ${centerX(center)} ${bottomY(center)} V ${yLine}`,
+          `M ${centerX(right)} ${bottomY(right)} V ${yLine}`,
+          `M ${centerX(left)} ${yLine} H ${centerX(right)}`,
+          `M ${centerX(leftChild)} ${yLine} V ${topY(leftChild)}`,
+          `M ${centerX(rightChild)} ${yLine} V ${topY(rightChild)}`
+        ].join(" ");
+      }
+
+      const edgeMarkup = [
+        topBridgePath("seed-yellow", "seed-red", "seed-white", "orange-right", "pink"),
+        pairToChildPath("orange-left", "orange-right", "black", 18)
+      ].map((path) => `<path d="${path}"></path>`).join("");
+
+      const chanceLabels = [
+        { text: "100%", x: 238, y: 224 },
+        { text: "100%", x: 458, y: 224 },
+        { text: "5.86%", x: 172, y: 432 }
+      ].map((label) => `
+        <text class="tree-chance-label" x="${label.x}" y="${label.y}" text-anchor="middle">${label.text}</text>
+      `).join("");
+
+      const nodeMarkup = nodes.map((node) => `
+        <div class="tree-node-card${node.result ? " result" : ""}" style="left:${node.x}px; top:${node.y}px;">
+          <div class="flower-thumb">
+            <img src="${plantImage(species.folder, node.item.color)}" alt="${escapeHtml(colorLabels[node.item.color])}">
+            ${overlayBadge(species.folder, node.item.color, node.item.source)}
+          </div>
+          <div class="tree-node-title">${escapeHtml(colorLabels[node.item.color])}</div>
+          <div class="tree-node-meta">
+            <span class="genotype-tag">${escapeHtml(node.item.genotype)}</span>
+          </div>
+        </div>
+      `).join("");
+
+      return `
+        <div class="tree-map-wrap">
+          <div class="tree-map" style="width:${graphWidth}px; height:${graphHeight}px;">
+            <svg class="tree-svg" viewBox="0 0 ${graphWidth} ${graphHeight}" preserveAspectRatio="none" aria-hidden="true">
+              ${edgeMarkup}
+              ${chanceLabels}
+            </svg>
+            ${nodeMarkup}
+          </div>
+        </div>
+      `;
+    }
+
+    function buildPansyTree(species) {
+      const graphWidth = 860;
+      const graphHeight = 760;
+      const nodes = [
+        { id: "seed-red-left", item: { color: "red", genotype: "200", source: "seed" }, x: 74, y: 54 },
+        { id: "seed-yellow", item: { color: "yellow", genotype: "020", source: "seed" }, x: 222, y: 54 },
+        { id: "orange", item: { color: "orange", genotype: "110", source: "hybrid" }, x: 148, y: 210, result: true },
+
+        { id: "seed-white-left", item: { color: "white", genotype: "001", source: "seed" }, x: 454, y: 54 },
+        { id: "seed-white-right", item: { color: "white", genotype: "001", source: "seed" }, x: 602, y: 54 },
+        { id: "blue", item: { color: "blue", genotype: "002", source: "hybrid" }, x: 528, y: 210, result: true },
+
+        { id: "seed-red-mid", item: { color: "red", genotype: "200", source: "seed" }, x: 362, y: 210 },
+        { id: "hybrid-red-left", item: { color: "red", genotype: "101", source: "hybrid" }, x: 445, y: 430, result: true },
+        { id: "hybrid-red-right", item: { color: "red", genotype: "101", source: "hybrid" }, x: 606, y: 430, result: true },
+        { id: "purple", item: { color: "purple", genotype: "202", source: "hybrid" }, x: 526, y: 610, result: true }
+      ];
+
+      function downPath(topIdA, topIdB, childId, labelX, labelY, chanceText) {
+        const a = nodes.find((node) => node.id === topIdA);
+        const b = nodes.find((node) => node.id === topIdB);
+        const child = nodes.find((node) => node.id === childId);
+        const ax = a.x + 54;
+        const bx = b.x + 54;
+        const ay = a.y + 122;
+        const by = b.y + 122;
+        const midX = (ax + bx) / 2;
+        const lineY = Math.max(ay, by) + 16;
+        const childX = child.x + 54;
+        const childY = child.y;
+
+        return {
+          path: [
+            `M ${ax} ${ay} V ${lineY}`,
+            `M ${bx} ${by} V ${lineY}`,
+            `M ${ax} ${lineY} H ${bx}`,
+            `M ${midX} ${lineY} V ${childY}`
+          ].join(" "),
+          label: `<text class="tree-chance-label" x="${labelX}" y="${labelY}" text-anchor="middle">${chanceText}</text>`
+        };
+      }
+
+      function straightArrowPath(topId, bottomId, labelX, labelY, chanceText) {
+        const top = nodes.find((node) => node.id === topId);
+        const bottom = nodes.find((node) => node.id === bottomId);
+        const x = top.x + 54;
+        const startY = top.y + 122;
+        const endY = bottom.y;
+        return {
+          path: `M ${x} ${startY} V ${endY}`,
+          label: `<text class="tree-chance-label" x="${labelX}" y="${labelY}" text-anchor="middle">${chanceText}</text>`
+        };
+      }
+
+      const routeA = downPath("seed-red-left", "seed-yellow", "orange", 168, 202, "100%");
+      const routeB = downPath("seed-white-left", "seed-white-right", "blue", 548, 202, "25%");
+      const routeC = downPath("seed-red-mid", "blue", "hybrid-red-left", 500, 422, "100%");
+      const routeD = downPath("hybrid-red-left", "hybrid-red-right", "purple", 580, 602, "6.25%");
+
+      const edgeMarkup = [routeA.path, routeB.path, routeC.path, routeD.path]
+        .map((path) => `<path d="${path}"></path>`)
+        .join("");
+
+      const chanceLabels = [routeA.label, routeB.label, routeC.label, routeD.label].join("");
+
+      const nodeMarkup = nodes.map((node) => `
+        <div class="tree-node-card${node.result ? " result" : ""}" style="left:${node.x}px; top:${node.y}px;">
+          <div class="flower-thumb">
+            <img src="${plantImage(species.folder, node.item.color)}" alt="${escapeHtml(colorLabels[node.item.color])}">
+            ${overlayBadge(species.folder, node.item.color, node.item.source)}
+          </div>
+          <div class="tree-node-title">${escapeHtml(colorLabels[node.item.color])}</div>
+          <div class="tree-node-meta">
+            <span class="genotype-tag">${escapeHtml(node.item.genotype)}</span>
+          </div>
+        </div>
+      `).join("");
+
+      return `
+        <div class="tree-map-wrap">
+          <div class="tree-map" style="width:${graphWidth}px; height:${graphHeight}px;">
+            <svg class="tree-svg" viewBox="0 0 ${graphWidth} ${graphHeight}" preserveAspectRatio="none" aria-hidden="true">
+              ${edgeMarkup}
+              ${chanceLabels}
+            </svg>
+            ${nodeMarkup}
+          </div>
+        </div>
+      `;
+    }
+
+    function buildSpeciesTree(species) {
+      if (species.id === "anemone") {
+        return buildAnemoneTree(species);
+      }
+      if (species.id === "cosmos") {
+        return buildCosmosTree(species);
+      }
+      if (species.id === "pansy") {
+        return buildPansyTree(species);
+      }
+
+      const nodeWidth = 124;
+      const nodeHeight = 110;
+      const horizontalGap = 42;
+      const verticalGap = 74;
+      const paddingX = 26;
+      const paddingTop = 96;
+      const paddingBottom = 28;
+
+      const nodes = [];
+      const edges = [];
+      const aliasMap = new Map();
+
+      function createNode(item, level, kind, extra = {}) {
+        const id = `${species.id}-node-${nodes.length}`;
+        const node = {
+          id,
+          item,
+          level,
+          kind,
+          x: 0,
+          y: 0,
+          ...extra
+        };
+        nodes.push(node);
+        return node;
+      }
+
+      function ensureSeedNode(item) {
+        const key = itemKey(item);
+        if (aliasMap.has(key)) {
+          return aliasMap.get(key);
+        }
+        const node = createNode(item, 0, "seed");
+        aliasMap.set(key, node);
+        return node;
+      }
+
+      function ensureHybridReferenceNode(item) {
+        const key = itemKey(item);
+        if (aliasMap.has(key)) {
+          return aliasMap.get(key);
+        }
+        const node = createNode(item, 1, "hybrid-reference");
+        aliasMap.set(key, node);
+        return node;
+      }
+
+      species.routes.forEach((route) => {
+        if (route.parentA.source === "seed") {
+          ensureSeedNode(route.parentA);
+        }
+        if (route.parentB.source === "seed") {
+          ensureSeedNode(route.parentB);
+        }
+      });
+
+      species.routes.forEach((route, index) => {
+        const parentA = route.parentA.source === "seed"
+          ? ensureSeedNode(route.parentA)
+          : ensureHybridReferenceNode(route.parentA);
+        const parentB = route.parentB.source === "seed"
+          ? ensureSeedNode(route.parentB)
+          : ensureHybridReferenceNode(route.parentB);
+
+        const nextLevel = Math.max(parentA.level, parentB.level) + 1;
+        const child = createNode(route.child, nextLevel, "result", {
+          step: route.step,
+          chance: route.chance,
+          note: route.note,
+          routeIndex: index
+        });
+
+        aliasMap.set(itemKey(route.child), child);
+
+        edges.push({
+          from: parentA.id,
+          to: child.id,
+          chance: route.chance,
+          side: "left"
+        });
+        edges.push({
+          from: parentB.id,
+          to: child.id,
+          chance: route.chance,
+          side: "right"
+        });
+      });
+
+      const levels = new Map();
+      nodes.forEach((node) => {
+        if (!levels.has(node.level)) {
+          levels.set(node.level, []);
+        }
+        levels.get(node.level).push(node);
+      });
+
+      const maxRowCount = Math.max(...Array.from(levels.values()).map((row) => row.length));
+      const graphWidth = Math.max(760, paddingX * 2 + maxRowCount * nodeWidth + Math.max(maxRowCount - 1, 0) * horizontalGap);
+      const graphHeight = paddingTop + levels.size * nodeHeight + Math.max(levels.size - 1, 0) * verticalGap + paddingBottom;
+
+      Array.from(levels.entries())
+        .sort((a, b) => a[0] - b[0])
+        .forEach(([, rowNodes]) => {
+          const rowWidth = rowNodes.length * nodeWidth + Math.max(rowNodes.length - 1, 0) * horizontalGap;
+          const startX = (graphWidth - rowWidth) / 2;
+          rowNodes.forEach((node, index) => {
+            node.x = startX + index * (nodeWidth + horizontalGap);
+            node.y = paddingTop + node.level * (nodeHeight + verticalGap);
+          });
+        });
+
+      const edgeMarkup = edges.map((edge) => {
+        const fromNode = nodes.find((node) => node.id === edge.from);
+        const toNode = nodes.find((node) => node.id === edge.to);
+
+        const startX = fromNode.x + nodeWidth / 2;
+        const startY = fromNode.y + nodeHeight;
+        const endX = toNode.x + nodeWidth / 2;
+        const endY = toNode.y;
+        const midY = startY + (endY - startY) / 2;
+        const path = `M ${startX} ${startY} V ${midY} H ${endX} V ${endY}`;
+
+        return `<path d="${path}"></path>`;
+      }).join("");
+
+      const labels = nodes
+        .filter((node) => node.kind === "result")
+        .map((node) => {
+          const labelX = node.x + nodeWidth / 2;
+          const labelY = node.y - 12;
+          return `<text class="tree-label" x="${labelX}" y="${labelY}" text-anchor="middle">${escapeHtml(node.step)}</text>`;
+        })
+        .join("");
+
+      const nodeMarkup = nodes.map((node) => `
+        <div class="tree-node-card${node.kind === "result" ? " result" : ""}" style="left:${node.x}px; top:${node.y}px;">
+          <div class="flower-thumb">
+            <img src="${plantImage(species.folder, node.item.color)}" alt="${escapeHtml(colorLabels[node.item.color])}">
+            ${overlayBadge(species.folder, node.item.color, node.item.source)}
+          </div>
+          <div class="tree-node-title">${escapeHtml(colorLabels[node.item.color])}</div>
+          <div class="tree-node-meta">
+            <span class="genotype-tag">${escapeHtml(node.item.genotype)}</span>
+          </div>
+        </div>
+      `).join("");
+
+      return `
+        <div class="tree-map-wrap">
+          <div class="tree-map" style="width:${graphWidth}px; height:${graphHeight}px;">
+            <svg class="tree-svg" viewBox="0 0 ${graphWidth} ${graphHeight}" preserveAspectRatio="none" aria-hidden="true">
+              ${edgeMarkup}
+              ${labels}
+            </svg>
+            ${nodeMarkup}
+          </div>
+        </div>
+      `;
+    }
+
+    function getSpeciesFlowerGroups(species) {
+      const seeds = new Map();
+      const hybrids = new Map();
+
+      species.routes.forEach((route) => {
+        [route.parentA, route.parentB, route.child].forEach((item) => {
+          const key = `${item.color}|${item.source}`;
+          if (item.source === "seed" && !seeds.has(key)) {
+            seeds.set(key, item);
+          }
+          if (item.source === "hybrid" && !hybrids.has(key)) {
+            hybrids.set(key, item);
+          }
+        });
+      });
+
+      return {
+        seeds: Array.from(seeds.values()),
+        hybrids: Array.from(hybrids.values())
+      };
+    }
+
+    function buildSpeciesTable(species) {
+      if (species.id === "pansy") {
+        const [route1, route2, route3, route4] = species.routes;
+        return `
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>단계</th>
+                  <th>부모 꽃 1</th>
+                  <th>부모 꽃 2</th>
+                  <th>자손 꽃</th>
+                  <th>확률</th>
+                  <th>유전자형</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1단계</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route1.parentA)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route1.parentB)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route1.child)}</td>
+                  <td><span class="chance-pill">${escapeHtml(route1.chance)}</span></td>
+                  <td class="meta">${escapeHtml(route1.child.genotype)}</td>
+                  <td class="note">${escapeHtml(route1.note)}</td>
+                </tr>
+                <tr>
+                  <td>2단계</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route2.parentA)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route2.parentB)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route2.child)}</td>
+                  <td><span class="chance-pill">${escapeHtml(route2.chance)}</span></td>
+                  <td class="meta">${escapeHtml(route2.child.genotype)}</td>
+                  <td class="note">${escapeHtml(route2.note)}</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">3단계</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route3.parentA)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route3.parentB)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route3.child)}</td>
+                  <td><span class="chance-pill">${escapeHtml(route3.chance)}</span></td>
+                  <td class="meta">${escapeHtml(route3.child.genotype)}</td>
+                  <td class="note">${escapeHtml(route3.note)}</td>
+                </tr>
+                <tr>
+                  <td class="flower-cell">${flowerToken(species.folder, route4.parentA)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route4.parentB)}</td>
+                  <td class="flower-cell">${flowerToken(species.folder, route4.child)}</td>
+                  <td><span class="chance-pill">${escapeHtml(route4.chance)}</span></td>
+                  <td class="meta">${escapeHtml(route4.child.genotype)}</td>
+                  <td class="note">${escapeHtml(route4.note)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      const rows = species.routes.map((route) => `
+        <tr>
+          <td>${escapeHtml(route.step)}</td>
+          <td class="flower-cell">${flowerToken(species.folder, route.parentA)}</td>
+          <td class="flower-cell">${flowerToken(species.folder, route.parentB)}</td>
+          <td class="flower-cell">${flowerToken(species.folder, route.child)}</td>
+          <td><span class="chance-pill">${escapeHtml(route.chance)}</span></td>
+          <td class="meta">${escapeHtml(route.child.genotype)}</td>
+          <td class="note">${escapeHtml(route.note)}</td>
+        </tr>
+      `).join("");
+
+      return `
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>단계</th>
+                <th>부모 꽃 1</th>
+                <th>부모 꽃 2</th>
+                <th>자손 꽃</th>
+                <th>확률</th>
+                <th>유전자형</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function buildSpeciesSection(species) {
+      const flowerGroups = getSpeciesFlowerGroups(species);
+      return `
+        <section class="species-section" id="${escapeHtml(species.id)}">
+          <header class="species-header">
+            <div class="species-title">
+              <div class="species-mark">
+                <img src="${plantImage(species.folder, species.heroColor)}" alt="${escapeHtml(species.name)}">
+              </div>
+              <div>
+                <h2>${escapeHtml(species.name)}</h2>
+                <p class="species-subtitle">${escapeHtml(species.english)}</p>
+              </div>
+            </div>
+            <aside class="species-flower-groups">
+              <div class="species-flower-group">
+                <strong>기본꽃</strong>
+                <div class="flower-mini-list">
+                  ${flowerGroups.seeds.map((item) => buildFlowerMini(species.folder, item)).join("")}
+                </div>
+              </div>
+              <div class="species-flower-group">
+                <strong>교배꽃</strong>
+                <div class="flower-mini-list">
+                  ${flowerGroups.hybrids.map((item) => buildFlowerMini(species.folder, item)).join("")}
+                </div>
+              </div>
+            </aside>
+          </header>
+
+          <div class="species-grid">
+            <section class="species-card">
+              ${buildSpeciesTable(species)}
+            </section>
+            <section class="species-card">
+              ${buildSpeciesTree(species)}
+            </section>
+          </div>
+        </section>
+      `;
+    }
+
+    const speciesLinks = flowerTypes.map((species) => `
+      <li>
+        <a class="species-link" href="#${escapeHtml(species.id)}">
+          <img src="${plantImage(species.folder, species.heroColor)}" alt="${escapeHtml(species.name)}">
+          <div>
+            <strong>${escapeHtml(species.name)}</strong>
+            <span>${escapeHtml(species.english)}</span>
+          </div>
+        </a>
+      </li>
+    `).join("");
+
+    const speciesSections = flowerTypes.map(buildSpeciesSection).join("");
+
+    document.getElementById("app").innerHTML = `
+      <section class="hero">
+        <span class="eyebrow">ACNH Flower Breeding Guide</span>
+        <h1>모동숲 꽃 교배를 한 페이지에서 정리</h1>
+        <p class="hero-copy">
+          꽃 교배 기본 규칙, 유전자 읽는 법, 친구 방문 보너스, 그리고 품종별 교배 레시피를 표와 트리형 흐름으로 함께 볼 수 있게 다시 구성했습니다.
+          상점 씨앗 꽃은 오른쪽 아래에 씨앗 가방을, 교배꽃 재사용 개체는 별표를 붙여 한눈에 구분할 수 있습니다.
+        </p>
+
+        <div class="hero-grid">
+          <section class="hero-card">
+            <h2>이 페이지에서 바로 볼 수 있는 것</h2>
+            <ul class="hero-list">
+              <li>
+                <strong>표 + 트리 동시 제공</strong>
+                <span>각 품종마다 교배 표와 단계별 트리형 교배 흐름을 함께 보여줍니다.</span>
+              </li>
+              <li>
+                <strong>유전자형과 확률 표시</strong>
+                <span>모든 단계에 자손의 유전자형과 교배 확률을 함께 붙였습니다.</span>
+              </li>
+              <li>
+                <strong>씨앗꽃 / 교배꽃 시각 구분</strong>
+                <span>상점 씨앗은 씨앗 가방, 다시 교배에 쓰는 꽃은 별표 배지로 바로 확인할 수 있습니다.</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="hero-card">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <strong>정리된 품종</strong>
+                <div class="value">8종</div>
+              </div>
+              <div class="stat-card">
+                <strong>다단계 장미 루트</strong>
+                <div class="value">7단계</div>
+              </div>
+              <div class="stat-card">
+                <strong>초록 국화 / 파랑 장미</strong>
+                <div class="value">희귀 교배 포함</div>
+              </div>
+              <div class="stat-card">
+                <strong>표시 방식</strong>
+                <div class="value">유전자 + 확률</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <div class="section-stack">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>빠른 이동</h2>
+              <p>원하는 품종으로 바로 내려가서 표와 트리형 교배 흐름을 확인할 수 있습니다.</p>
+            </div>
+          </div>
+          <ul class="species-links">${speciesLinks}</ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>교배꽃 기본 규칙</h2>
+              <p>복잡한 레시피보다 먼저, 꽃 교배가 성립하는 조건과 운영 팁부터 정리했습니다.</p>
+            </div>
+          </div>
+          <div class="rule-grid">
+            <article class="rule-card">
+              <h3>물 주기 필수</h3>
+              <p>비나 눈이 오지 않는 날에는 반드시 꽃에 물을 줘야 다음 날 새로운 꽃이 생길 확률이 열립니다.</p>
+            </article>
+            <article class="rule-card">
+              <h3>상점 씨앗으로 시작</h3>
+              <p>섬 자생 꽃이나 마일섬 꽃은 숨은 유전자가 섞여 있을 수 있으므로, 정확한 교배는 씨앗부터 시작하는 것이 가장 안전합니다.</p>
+            </article>
+            <article class="rule-card">
+              <h3>빈칸 확보</h3>
+              <p>꽃 주변 8방향 중 최소 한 칸은 비어 있어야 자식 꽃이 생성될 수 있습니다.</p>
+            </article>
+            <article class="rule-card">
+              <h3>체스판 배치</h3>
+              <p>대각선 배치가 꽃끼리 닿으면서도 빈칸을 확보하기 쉬워 가장 관리하기 편합니다.</p>
+            </article>
+            <article class="rule-card">
+              <h3>자가복제 주의</h3>
+              <p>짝이 되는 꽃이 없으면 꽃은 자기 자신을 복제할 수 있습니다. 목표 교배꽃은 꼭 짝을 맞춰 분리 관리하세요.</p>
+            </article>
+            <article class="rule-card">
+              <h3>원치 않는 꽃 정리</h3>
+              <p>잡초나 클론 꽃이 교배 공간을 막으면 원하는 결과가 나올 확률이 줄어듭니다. 교배 구역은 항상 깔끔하게 유지하는 편이 좋습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>유전자 시스템 읽는 법</h2>
+              <p><code>0</code>, <code>1</code>, <code>2</code>는 각 유전자 자리의 우성/열성 조합을 숫자로 줄여 쓴 표기입니다.</p>
+            </div>
+          </div>
+          <div class="genotype-grid">
+            <section class="species-card">
+              <table class="mini-table">
+                <thead>
+                  <tr>
+                    <th>숫자</th>
+                    <th>의미</th>
+                    <th>문자 예시</th>
+                    <th>설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>0</code></td>
+                    <td>열성 순종</td>
+                    <td><code>aa</code></td>
+                    <td>열성 유전자 2개를 가진 상태</td>
+                  </tr>
+                  <tr>
+                    <td><code>1</code></td>
+                    <td>잡종</td>
+                    <td><code>Aa</code></td>
+                    <td>우성과 열성을 1개씩 가진 상태</td>
+                  </tr>
+                  <tr>
+                    <td><code>2</code></td>
+                    <td>우성 순종</td>
+                    <td><code>AA</code></td>
+                    <td>우성 유전자 2개를 가진 상태</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <aside class="tip-box">
+              <h3>예시로 읽어보기</h3>
+              <p><strong><code>201</code></strong>은 자리별로 <strong><code>AA / aa / Aa</code></strong>처럼 읽습니다.</p>
+              <p>첫 번째 자리 <code>2</code>는 <code>AA</code>, 두 번째 자리 <code>0</code>은 <code>aa</code>, 세 번째 자리 <code>1</code>은 <code>Aa</code>를 뜻합니다.</p>
+              <p>장미처럼 4자리 유전자형인 <code>2001</code>, <code>1110</code>도 같은 방식으로 한 자리씩 끊어서 읽으면 됩니다.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>추천 배치와 친구 방문 보너스</h2>
+              <p>교배 효율을 올리려면 배치와 물 주기 방식이 중요합니다.</p>
+            </div>
+          </div>
+          <div class="genotype-grid">
+            <section class="species-card">
+              <h3>대각선 추천 배치</h3>
+              <p class="species-summary">서로 인접하면서도 새 꽃이 자랄 빈칸이 남도록 체스판처럼 배치하면 관리가 편합니다.</p>
+              <div class="layout-example" aria-label="대각선 추천 배치">
+                <div>🌸 ⬜ 🌸</div>
+                <div>⬜ 🌸 ⬜</div>
+                <div>🌸 ⬜ 🌸</div>
+              </div>
+            </section>
+            <section class="species-card">
+              <h3>친구 방문 보너스</h3>
+              <table class="bonus-table">
+                <thead>
+                  <tr>
+                    <th>물을 준 친구 수</th>
+                    <th>다음 날 교배 성공률</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>0명 (본인만)</td><td>약 5%</td></tr>
+                  <tr><td>1명</td><td>약 25%</td></tr>
+                  <tr><td>2명</td><td>약 50%</td></tr>
+                  <tr><td>3명</td><td>약 75%</td></tr>
+                  <tr><td>4명</td><td>약 80%</td></tr>
+                  <tr><td>5명 이상</td><td>약 80% (최대)</td></tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </section>
+
+        ${speciesSections}
+
+        <section class="footer-note">
+          같은 색 이름이라도 어떤 부모에서 나온 꽃인지에 따라 유전자형이 달라질 수 있습니다. 특히 장미의 <code>1110</code> 빨강, 국화의 특수 노랑, 아네모네/팬지의 특수 빨강처럼 다음 단계 부모가 되는 꽃은 꼭 따로 구역을 나눠 관리하는 편이 가장 안전합니다.
+        </section>
+      </div>
+    `;
+  </script>
+</body>
+</html>
